@@ -1,0 +1,91 @@
+SELENIUM
+Framework'ler:Tentng, appium, cucumber, junit
+Framework, uzerine kodlarimizi yazarak projelerin olusturulabilecegi bir yapidir. Framework, test yapmak icin kullandigimiz tum enstrumanlari birlestirir.
+Framework ile UI, API ve Database testleri yapilandirilabilir.
+4 bileşen: Selenım Integrated Development Evironment(IDE), Selenium Remote Control (RC)(Selenyum Uzaktan Kumanda (RC)), WebDriver,Selenium Grid
+- Selenium test otomasyonunu WebDriver ile gerceklestirir. Java ile yazdigimiz kodlar ile kullanilacak browser’a uygun bir webDriver
+objesi olusturulur.
+-Selenıum avantajaları:
+    1 ) Ücretsiz ve acik kaynaklidir. ( Open source )
+    2 ) Bir çok programlama dilini destekler (Java, Python, PHP, C#, Ruby vs.)
+    3 ) Çoklu işletim sistemleriyle çalışır. Multiple operating systems (Windows,MacOS, Linux)
+    4 ) Birden çok tarayıcı ile çalışır. Multiple browsers (Edge,Safari, Chrome, Firefox vs.)
+-Selenıum dezavantajları:
+    1 ) Programlama bilgisi gerektirir (Biz Java biliyoruz)
+    2 ) Yalnızca web tabanli uygulamalari test eder
+    3 ) Profesyonel desteğe sahip değil
+    4 ) performans testleri yapamaz
+    5 ) Captcha’yi asamaz(diğer tum otomasyon araçları gibi)
+-WebDriver: Kullanilacak browser’a ait driver projeye eklendikten sonra, her class’da bilgisayardaki browser’i yönetecek bir WebDriver objesi oluşturulur
+ve o obje yardimiyla WebDriver Class’indaki hazir method’lar kullanılabilir.
+    System.setProperty("webdriver.chrome.driver","src/driver/chromedriver.exe");
+    WebDriver driver= new ChromeDriver( );
+-WebElements: Her bir web element yapisina uygun olarak farkli tag ve attribute’ler bulundurur. Web elementi unique olarak tarif edebilmek icin tag ve attribute’ler tekil olarak
+kullanilabilir. Tekil kullanim unique tarif icin yeterli olmazsa, birden fazla bilginin kombinasyonu kullanilir.
+    Tag :input
+    Attributes : type, id, value, name, autocomplete, placeholder, class, dir,
+             tabindex, aria-label
+-driver.get...() Method'ları:
+
+    driver.get("Url") :driver’i istenen url’e goturur.
+    driver.getCurrentUrl() :Gidilen Web sayfasinin URL bilgisini döndürür.
+    driver.getTitle() :Gidilen Web sayfasinin title (baslik) bilgisini döndürür.
+    driver.close(): Acilmis olan driver’i kapatir
+    driver.quit :Test sirasinda birden fazla window acilmissa, tumunu kapatir.
+    driver.getPageSource :Gidilen sayfanin kaynak kodlarini döndürür.
+    driver.getWindowHandle :Acilan window’a isletim sistemi tarafindan verilen unique bir deger olan window handle degerini döndürür.
+    driver.getWindowHandles :Test sirasinda driver birden fazla window actiysa , bir Set olarak acilan tum window’larin window handle degerlerini döndürür.
+-driver.navigate…( ) Method'lari:
+
+    driver.navigate().to(Url) :driver’i verile URL’e götürür. driver.get( )’den farkı navigate method’lari ile gidilen sayfalarin back, forward gibi
+                   fonksiyonlari saglayabilmesidir.
+    driver.navigate().back() :Gidilen web sayfasini bir onceki sayfaya döndürür.
+    driver.navigate().forward() :Gidilen web sayfasindan navigate( ).back( ) ile bir onceki sayfaya donulmusse yeniden ilk sayfaya götürür.
+    driver.navigate().refresh() : Icinde olunan web sayfasini yeniler.
+    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15)) :driver’in gittigi sayfayi acmasi ve orada kullanacagi her bir web elementi bulmasi
+                                       icin tanimlanan maximum bekleme suresini tanimlar.
+    driver.manage().window().maximize() :Acilan driver’i tam sayfa yapar.
+    driver.manage().window().setPosition(new Point(200,300)) :Acilan driver’i kullanicinin istedigi ozel olculere getirir ve istenen noktaya tasir.
+        driver.manage().window().setSize(new Dimension(500,500)) :Acilan driver’i kullanicinin istedigi ozel olculere getirir ve istenen noktaya tasir.
+    driver.manage().window().fullscreen() :Acilan driver’i onceden belirlenmis standart buyukluklere getirir.
+    driver.manage().window().maximize() :Acilan driver’i onceden belirlenmis standart buyukluklere getirir.
+    driver.manage().window().minimize() :Acilan driver’i onceden belirlenmis standart buyukluklere getirir.
+-driver.findElement( ) Method’u: Locator’a uygun tüm web elementlerini döndürür.
+Unique locator’i tespit edilen web element kullanilmak icin, driver objesi ile LOCATE edilip, WebElement class’indan olusturulan objeye atanmalidir.
+
+    driver.findElement(By.locator (“uniqueLocatorDegeri”) ): Driver, findElement( ) ile objeyi bulamazsa NoSuchElementException verir.
+    driver.findElements(…..): Locator’a uygun tüm web elementlerini döndürür. findElements( ) birden fazla web element döndürebileceği için dönen elementleri
+                 store etmek için bır list kullanılmalıdır. Exception fırlatmaz.
+-Locators: (Konum belirleyiciler):Selenium’da; metin kutuları, onay kutuları, linkler, radyo butonları, liste kutuları ve diğer tum web
+öğeler üzerinde eylemler gerçekleştirmek için LOCATORS’a ihtiyacımız vardır. 6 adet locator var, bunlarla ulasilamayan webelementleri icin ozel
+olarak tanimlanan Xpath ve css locator’lari kullanilir.
+
+    By.id() :Id genellikle unique oldugu icin locate etmekte sıkça kullanilir.
+    By.name(“uniqueName”) :WebElement’in HTML kodlarinda name attribute’u varsa ve unique ise locate
+                etmek icin By.name( ) kullanilabilir
+    By.classname(“uniqueClassValue”) :class attribute’u ile yapacagimiz locate islemleri genellikle 1 web element degil, birden fazla element döndürür.
+                    bu elementleri store edebilmek icin bir web element degil, web elementlerden olusan bir list gereklidir.class value’sunde
+                    bosluk (space) varsa By.classname ile locate islemlerinde sorunlar yasanabilir.
+    By.tagname(“tagValue”): Tag ismi ile yapilan locate’ler unique bir elemente ulasmaktan daha cok sayfadaki tum link’leri bulmak gibi amaclarla kullanilabilir.
+    By.linkText(“linkYazisininTamami”) :By.linkText ( ) icin bosluklar da dikkate alinarak tum metin yazilmalidir.
+    By.partialLinkText(“linkYazisininBirBolumu”) :Tum metnin yazilamamasi, yazinin kismi olarak kullanilmasi isteniyorsa kullanilmalidir.
+-WebElement Method’lari:
+    webElement.click() :Web element’e click yapar.
+    webElement.sendKeys() Web element’e istenen metni yollar
+    webElement.submit() : ENTER tuşu işlemi
+    webElement.isEnabled() : Erişilebilir mi?
+    webElement.isDisplayed() : Görünür mü?
+    webElement.isSelected() : Seçili mi?
+-Locators-XPath (Relative): Xpath HTML kodu kullanir ancak farkli kombinasyonlar kullanabildigi icin dinamiktir ve her webelement icin mutlaka bir xpath bulunabilir.
+
+    //tagName[@attributeIsmi=‘attributeValue']
+    //input : sadece tag ile
+    //*[@type='text']: tag ismi farketmeksizin
+    //input[@*='text']: Attribute farketmeksizin
+    //input[@type]: Attribute value farketmeksizin
+    //div[@id='logo' or class='flex-col-logo']
+    //div[@id='logo' or/and class='flex-col-logo']
+    //tagName[text()='yazinin tamami']: Text ile locate yazmak icin kullanilan genel syntax
+    //tagname[.='yazinin tamami'] , //*[.='yazinin tamami'] :Genel xpath kullanimina uygun olarak tagname veya attribute ismi yazilmadan da text ile xpath yazilabilir.
+    //*[contains(text(),'yazinin tamami')]: Metnin sadece bir kismi kullanilacaksa
+
