@@ -13,9 +13,11 @@ public class C05_RelativeLocators {
     public static void main(String[] args) {
 
         System.setProperty("webdriver.chrome.driver","src/resources/chromedriver.exe"); // 1.adim
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
+        WebDriver driver = new ChromeDriver(); // 2.adim
+        driver.manage().window().maximize(); // 3.adim tam ekran yapiyoruz
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+        // 4.adim sayfanin yuklenmesi ve web elementlerinin bulunmasi icin
+        // yaklasik bir bekleme degeri
 
         /*
             Cok ozel durumlar icin Selenium4 ile Relative Locators tanitilmistir.
@@ -27,26 +29,28 @@ public class C05_RelativeLocators {
             etrafindaki calisan locator'a sahip webelementler ile locate edilebilir
          */
 
-        //1 ) https://www.diemol.com/selenium-4-demo/relative-locators-demo.html  adresine gidin
+        //**1 ) https://www.diemol.com/selenium-4-demo/relative-locators-demo.html  adresine gidin
         driver.get("https://www.diemol.com/selenium-4-demo/relative-locators-demo.html");
-        //2 ) Berlin’i  3 farkli relative locator ile locate edin
+
+        //**2 ) Berlin’i  3 farkli relative locator ile locate edin
         // <img id="pid7_thumb" src="bots/sl-berlin-bot.png" class="ui-li-thumb">
 
-        // A- NYC'nin altinda diye locate edelim
+        // A- NYC'nin (below)altinda diye locate edelim
         WebElement nycElementi = driver.findElement(By.id("pid3_thumb"));
-
         WebElement berlin1 = driver.findElement(RelativeLocator.with(By.tagName("img")).below(nycElementi));
+
 
         // B - Boston'in sagindaki diye locate edelim
         WebElement bostonElementi = driver.findElement(By.id("pid6_thumb"));
         WebElement berlin2 = driver.findElement(RelativeLocator.with(By.id("pid7_thumb")).toRightOf(bostonElementi));
 
-        // C - Sailor'in ustu diye tarif edelim
+
+        // C - Sailor'in (above)ustu diye tarif edelim
         WebElement sailorElementi = driver.findElement(By.id("pid11_thumb"));
         WebElement berlin3 = driver.findElement(RelativeLocator.with(By.className("ui-li-thumb")).above(sailorElementi));
 
 
-        //3 ) Relative locator’larin dogru calistigini test edin
+        //**3 ) Relative locator’larin dogru calistigini TEST EDIN
 
         if (berlin1.getAttribute("id").equals("pid7_thumb")){
             System.out.println("Berlin1 testi PASSED");
